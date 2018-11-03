@@ -35,4 +35,3 @@ Route::get('dave/tambah', 'Dave@tambah');
 
 Route::resource('mahasiswa','Mahasiswa');
 Route::resource('model_users','User');
-
