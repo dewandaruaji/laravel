@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ModelUser;
 
-class user extends Controller
+class files extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,8 @@ class user extends Controller
      */
     public function index()
     {
-        $data = ModelUser::all();
-        return view('model_users',compact('data'));
-    }
+        $data = \App\ModelFile::all();
+        return view('model_files',compact('data'));    }
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +23,7 @@ class user extends Controller
      */
     public function create()
     {
-        return view ('user_create');
+        return view ('file_create');
     }
 
     /**
@@ -36,13 +34,15 @@ class user extends Controller
      */
     public function store(Request $request)
     {
-        $data = new ModelUser();
-		$data->nama = $request->nama;
-		$data->email = $request->email;
-		$data->username = $request->username;
-		$data->password = $request->password;
-		$data->save();
-		return redirect()->route('model_users.index')->with('alert-success','Berhasil Menambahkan Data!');
+        $data = new \App\ModelFile();
+        $data->nama = $request->input('nama');
+        $file = $request->file('file');
+        $ext = $file->getClientoriginalExtension();
+        $newName = rand(100000,1001238912).".".$ext;
+        $file->move('uploads/file',$newName);
+        $data->file = $newName;
+        $data->save();
+        return redirect()->route('model_files.index')->with('alert success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -64,8 +64,7 @@ class user extends Controller
      */
     public function edit($id)
     {
-        $data = ModelUser::where('id',$id)->get();
-        return view('user_edit',compact('data'));
+        //
     }
 
     /**
@@ -77,14 +76,7 @@ class user extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = ModelUser::where('id',$id)->first();
-        $data->nama = $request->nama;
-        $data->email = $request->email;
-        $data->username = $request->username;
-        $data->password = $request->password;
-        $data->save();
-        return redirect()->route('model_users.index')->with('alert-success','Data Berhasil Diubah');
-
+        //
     }
 
     /**
@@ -95,9 +87,6 @@ class user extends Controller
      */
     public function destroy($id)
     {
-        $data = ModelUser::where('id',$id)->first();
-        $data->delete();
-        return redirect()->route('model_users.index')->with('alert-success','Data Berhasil Dihapus');
-
+        //
     }
 }

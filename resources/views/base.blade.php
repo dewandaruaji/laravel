@@ -71,6 +71,13 @@
             <li>
                 <a href="/halamantiga"> - Halaman Tiga</a>
             </li>
+            <br/>
+            <li>
+                <a href="/model_files">File</a>
+            </li>
+            <li>
+                <a href="/file_create"> - Create</a>
+            </li>
         </ul>
     </aside>
 

@@ -29,9 +29,13 @@ Route::get('/mahasiswa_create', function () {
 Route::get('/user_create', function () {
     return view('user_create');
 });
+Route::get('/file_create', function () {
+    return view('file_create');
+});
 
 Route::resource('halaman', 'Dave');
 Route::get('dave/tambah', 'Dave@tambah');
 
 Route::resource('mahasiswa','Mahasiswa');
 Route::resource('model_users','User');
+Route::resource('model_files','Files');
